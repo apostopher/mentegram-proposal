@@ -3,20 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mentegram API Migration Plan</title>
+    <title>Mentegram Platform Migration Plan</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
     <style>
       :root {
-        --primary: #1a1a2e;
+        --primary: #0f172a;
         --accent: #4f46e5;
         --accent-light: #eef2ff;
         --accent-mid: #c7d2fe;
+        --api: #0ea5e9;
+        --api-light: #f0f9ff;
+        --api-border: #bae6fd;
+        --ui: #8b5cf6;
+        --ui-light: #f5f3ff;
+        --ui-border: #ddd6fe;
+        --shared: #6366f1;
+        --shared-light: #eef2ff;
         --text: #1e293b;
         --text-secondary: #64748b;
+        --text-tertiary: #94a3b8;
         --border: #e2e8f0;
+        --border-light: #f1f5f9;
         --bg: #ffffff;
         --bg-subtle: #f8fafc;
         --success: #059669;
@@ -45,16 +55,37 @@
       }
 
       .container {
-        max-width: 960px;
+        max-width: 1000px;
         margin: 0 auto;
-        padding: 0 32px;
+        padding: 0 40px;
       }
 
       /* Header */
       .header {
-        background: var(--primary);
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
         color: white;
-        padding: 64px 0 56px;
+        padding: 72px 0 64px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .header::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: radial-gradient(
+          ellipse at 80% 20%,
+          rgba(79, 70, 229, 0.15) 0%,
+          transparent 60%
+        );
+      }
+
+      .header .container {
+        position: relative;
+        z-index: 1;
       }
 
       .header-badge {
@@ -63,33 +94,39 @@
         font-weight: 600;
         letter-spacing: 1.5px;
         text-transform: uppercase;
-        background: rgba(255, 255, 255, 0.12);
-        padding: 6px 14px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        padding: 6px 16px;
         border-radius: 100px;
         margin-bottom: 24px;
       }
 
       .header h1 {
-        font-size: 40px;
-        font-weight: 800;
-        line-height: 1.15;
+        font-size: 44px;
+        font-weight: 900;
+        line-height: 1.1;
         margin-bottom: 12px;
-        letter-spacing: -0.5px;
+        letter-spacing: -1px;
+      }
+
+      .header h1 span {
+        color: var(--accent-mid);
       }
 
       .header p {
-        font-size: 18px;
+        font-size: 17px;
         font-weight: 300;
-        color: rgba(255, 255, 255, 0.7);
-        max-width: 600px;
+        color: rgba(255, 255, 255, 0.6);
+        max-width: 620px;
+        line-height: 1.7;
       }
 
       .header-meta {
         display: flex;
-        gap: 32px;
-        margin-top: 32px;
+        gap: 40px;
+        margin-top: 36px;
         padding-top: 32px;
-        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
       }
 
       .header-meta-item {
@@ -99,49 +136,50 @@
       }
 
       .header-meta-label {
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 1px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.45);
+        color: rgba(255, 255, 255, 0.35);
       }
 
       .header-meta-value {
-        font-size: 15px;
-        font-weight: 500;
-        color: rgba(255, 255, 255, 0.9);
+        font-size: 16px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.95);
       }
 
       /* Summary Cards */
       .summary {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(5, 1fr);
         gap: 1px;
         background: var(--border);
         border: 1px solid var(--border);
-        border-radius: 12px;
+        border-radius: 16px;
         overflow: hidden;
-        margin-top: -32px;
+        margin-top: -36px;
         position: relative;
-        z-index: 1;
+        z-index: 2;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
       }
 
       .summary-card {
         background: var(--bg);
-        padding: 24px;
+        padding: 28px 20px;
         text-align: center;
       }
 
       .summary-card-value {
-        font-size: 32px;
+        font-size: 30px;
         font-weight: 800;
         color: var(--accent);
         letter-spacing: -1px;
       }
 
       .summary-card-label {
-        font-size: 12px;
-        font-weight: 500;
+        font-size: 11px;
+        font-weight: 600;
         color: var(--text-secondary);
         margin-top: 4px;
         text-transform: uppercase;
@@ -150,7 +188,7 @@
 
       /* Section */
       .section {
-        padding: 56px 0;
+        padding: 60px 0;
         border-bottom: 1px solid var(--border);
       }
 
@@ -169,52 +207,21 @@
 
       .section h2 {
         font-size: 28px;
-        font-weight: 700;
+        font-weight: 800;
         color: var(--primary);
         margin-bottom: 8px;
-        letter-spacing: -0.3px;
+        letter-spacing: -0.5px;
       }
 
       .section-desc {
         font-size: 15px;
         color: var(--text-secondary);
-        margin-bottom: 32px;
-        max-width: 680px;
+        margin-bottom: 36px;
+        max-width: 700px;
+        line-height: 1.7;
       }
 
-      /* Tech Stack */
-      .stack-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-      }
-
-      .stack-item {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        padding: 16px 20px;
-        background: var(--bg-subtle);
-        border-radius: 10px;
-        border: 1px solid var(--border);
-      }
-
-      .stack-item-layer {
-        font-size: 12px;
-        font-weight: 600;
-        color: var(--text-secondary);
-        min-width: 90px;
-        text-transform: uppercase;
-        letter-spacing: 0.3px;
-      }
-
-      .stack-item-tech {
-        font-size: 15px;
-        font-weight: 600;
-        color: var(--text);
-      }
-
-      /* Current State */
+      /* Transformation Grid */
       .current-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -222,18 +229,18 @@
       }
 
       .current-item {
-        padding: 20px;
+        padding: 20px 24px;
         background: var(--bg-subtle);
-        border-radius: 10px;
+        border-radius: 12px;
         border: 1px solid var(--border);
       }
 
       .current-item h4 {
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--text-secondary);
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--text-tertiary);
         text-transform: uppercase;
-        letter-spacing: 0.5px;
+        letter-spacing: 1px;
         margin-bottom: 8px;
       }
 
@@ -241,27 +248,97 @@
         font-size: 15px;
         font-weight: 500;
       }
-
       .current-item .old {
         color: var(--danger);
         text-decoration: line-through;
-        opacity: 0.6;
+        opacity: 0.55;
       }
-
       .current-item .new {
         color: var(--success);
+        font-weight: 600;
+      }
+      .current-item .arrow {
+        color: var(--text-tertiary);
+        margin: 0 10px;
+        font-size: 13px;
       }
 
-      .current-item .arrow {
+      /* Stack Grid */
+      .stack-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+
+      .stack-item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 18px;
+        background: var(--bg-subtle);
+        border-radius: 10px;
+        border: 1px solid var(--border);
+      }
+
+      .stack-item-layer {
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--text-tertiary);
+        min-width: 72px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .stack-item-tech {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      /* Scope callout */
+      .scope-callout {
+        display: flex;
+        gap: 24px;
+        padding: 28px 32px;
+        background: linear-gradient(
+          135deg,
+          var(--accent-light) 0%,
+          #f5f3ff 100%
+        );
+        border: 1px solid var(--accent-mid);
+        border-radius: 16px;
+        margin-bottom: 40px;
+      }
+
+      .scope-callout-item {
+        flex: 1;
+      }
+
+      .scope-callout-value {
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--accent);
+        letter-spacing: -0.5px;
+      }
+
+      .scope-callout-label {
+        font-size: 13px;
+        font-weight: 500;
         color: var(--text-secondary);
-        margin: 0 8px;
+        margin-top: 2px;
+      }
+
+      .scope-callout-note {
+        font-size: 12px;
+        color: var(--text-tertiary);
+        margin-top: 2px;
       }
 
       /* Phase Timeline */
       .phase {
         position: relative;
-        padding-left: 40px;
-        padding-bottom: 40px;
+        padding-left: 44px;
+        padding-bottom: 36px;
       }
 
       .phase:last-child {
@@ -303,60 +380,84 @@
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
-        margin-bottom: 12px;
+        gap: 16px;
+        margin-bottom: 10px;
       }
 
       .phase-title {
-        font-size: 18px;
+        font-size: 17px;
         font-weight: 700;
         color: var(--primary);
       }
 
       .phase-number {
-        font-size: 13px;
-        font-weight: 600;
+        font-size: 12px;
+        font-weight: 700;
         color: var(--accent);
         margin-right: 8px;
+      }
+
+      .phase-effort-group {
+        display: flex;
+        gap: 6px;
+        flex-shrink: 0;
       }
 
       .phase-effort {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--accent);
-        background: var(--accent-light);
-        padding: 4px 12px;
+        gap: 4px;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 10px;
         border-radius: 100px;
         white-space: nowrap;
-        flex-shrink: 0;
       }
 
-      .phase-effort.critical {
+      .phase-effort.api {
+        color: var(--api);
+        background: var(--api-light);
+        border: 1px solid var(--api-border);
+      }
+
+      .phase-effort.ui {
+        color: var(--ui);
+        background: var(--ui-light);
+        border: 1px solid var(--ui-border);
+      }
+
+      .phase-effort.shared {
+        color: var(--shared);
+        background: var(--shared-light);
+        border: 1px solid var(--accent-mid);
+      }
+
+      .phase-effort.critical-tag {
         color: var(--warning);
         background: var(--warning-light);
+        border: 1px solid #fde68a;
       }
 
       .phase-desc {
         font-size: 14px;
         color: var(--text-secondary);
-        margin-bottom: 16px;
+        margin-bottom: 14px;
+        line-height: 1.65;
       }
 
       .phase-items {
         display: flex;
         flex-wrap: wrap;
-        gap: 6px;
+        gap: 5px;
       }
 
       .phase-tag {
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 500;
         color: var(--text-secondary);
         background: var(--bg-subtle);
         border: 1px solid var(--border);
-        padding: 4px 10px;
+        padding: 3px 9px;
         border-radius: 6px;
       }
 
@@ -364,64 +465,143 @@
       .effort-table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 8px;
       }
 
       .effort-table th {
         text-align: left;
-        font-size: 11px;
+        font-size: 10px;
         font-weight: 700;
-        letter-spacing: 1px;
+        letter-spacing: 1.2px;
         text-transform: uppercase;
-        color: var(--text-secondary);
-        padding: 12px 16px;
+        color: var(--text-tertiary);
+        padding: 14px 14px;
         border-bottom: 2px solid var(--border);
       }
 
+      .effort-table th.col-api {
+        color: var(--api);
+        text-align: center;
+      }
+      .effort-table th.col-ui {
+        color: var(--ui);
+        text-align: center;
+      }
+      .effort-table th.col-total {
+        text-align: right;
+      }
+
       .effort-table td {
-        padding: 14px 16px;
-        border-bottom: 1px solid var(--border);
+        padding: 13px 14px;
+        border-bottom: 1px solid var(--border-light);
         font-size: 14px;
       }
 
-      .effort-table tr:last-child td {
-        border-bottom: none;
+      .effort-table tbody tr:hover {
+        background: var(--bg-subtle);
       }
 
       .effort-table .phase-num {
-        font-weight: 700;
+        font-weight: 800;
         color: var(--accent);
         font-size: 13px;
-        width: 60px;
+        width: 44px;
       }
 
       .effort-table .scope-name {
         font-weight: 600;
       }
 
-      .effort-table .effort-days {
-        font-weight: 700;
-        color: var(--accent);
+      .effort-table .effort-api,
+      .effort-table .effort-ui {
+        text-align: center;
+        font-weight: 600;
+        font-size: 13px;
+      }
+
+      .effort-table .effort-api {
+        color: var(--api);
+      }
+      .effort-table .effort-ui {
+        color: var(--ui);
+      }
+
+      .effort-table .effort-total {
         text-align: right;
+        font-weight: 700;
+        color: var(--primary);
+        font-size: 14px;
         white-space: nowrap;
       }
 
-      .effort-table .detail-text {
-        color: var(--text-secondary);
-        font-size: 13px;
-        text-align: right;
+      .effort-table .dash {
+        color: var(--border);
       }
 
       .effort-table tfoot td {
         border-top: 2px solid var(--primary);
+        border-bottom: none;
         font-weight: 700;
-        font-size: 15px;
+        font-size: 14px;
         padding-top: 16px;
       }
 
-      .effort-table tfoot .effort-days {
-        color: var(--primary);
+      .effort-table tfoot .effort-total {
         font-size: 16px;
+        font-weight: 800;
+      }
+
+      /* Dual bar */
+      .dual-bar-section {
+        margin-top: 36px;
+      }
+
+      .dual-bar-label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+      }
+
+      .dual-bar-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 6px;
+      }
+
+      .dual-bar-name {
+        font-size: 12px;
+        font-weight: 700;
+        width: 32px;
+        text-align: right;
+      }
+
+      .dual-bar-track {
+        flex: 1;
+        height: 28px;
+        background: var(--border-light);
+        border-radius: 6px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .dual-bar-fill {
+        height: 100%;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        padding-left: 12px;
+        font-size: 12px;
+        font-weight: 700;
+        color: white;
+      }
+
+      .dual-bar-fill.api-bar {
+        background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+      }
+      .dual-bar-fill.ui-bar {
+        background: linear-gradient(90deg, #8b5cf6, #a78bfa);
       }
 
       /* Week plan */
@@ -430,117 +610,129 @@
         grid-template-columns: 80px 1fr;
         gap: 0;
         border: 1px solid var(--border);
-        border-radius: 12px;
+        border-radius: 14px;
         overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
       }
 
       .week-label {
         background: var(--primary);
         color: white;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 700;
-        padding: 18px 16px;
+        padding: 16px 14px;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       }
 
       .week-content {
-        padding: 18px 20px;
+        padding: 16px 20px;
         font-size: 14px;
-        color: var(--text);
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid var(--border-light);
         display: flex;
         align-items: center;
         gap: 12px;
       }
 
-      .week-content:last-child,
-      .week-label:last-child {
-        border-bottom: none;
+      .week-content:nth-child(2n) {
+        background: var(--bg-subtle);
       }
 
       .week-phases {
         display: flex;
-        gap: 6px;
+        gap: 5px;
         flex-wrap: wrap;
+        flex-shrink: 0;
       }
 
       .week-phase-tag {
-        font-size: 11px;
-        font-weight: 600;
+        font-size: 10px;
+        font-weight: 700;
         background: var(--accent-light);
         color: var(--accent);
-        padding: 3px 8px;
+        padding: 2px 7px;
         border-radius: 4px;
       }
 
       .week-desc {
         font-weight: 500;
+        font-size: 13px;
       }
 
-      /* Progress bar */
-      .bar-container {
-        display: flex;
-        height: 12px;
-        border-radius: 6px;
-        overflow: hidden;
-        background: var(--border);
-        margin-top: 8px;
-        margin-bottom: 8px;
-      }
-
-      .bar-segment {
-        height: 100%;
-        position: relative;
-      }
-
-      .bar-legend {
-        display: flex;
-        gap: 24px;
-        margin-top: 12px;
-        flex-wrap: wrap;
-      }
-
-      .bar-legend-item {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        font-size: 12px;
-        font-weight: 500;
-        color: var(--text-secondary);
-      }
-
-      .bar-legend-dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 3px;
-      }
-
-      /* Notes */
+      /* Note box */
       .note-box {
-        background: var(--accent-light);
+        background: var(--bg-subtle);
         border-left: 3px solid var(--accent);
-        padding: 16px 20px;
-        border-radius: 0 8px 8px 0;
-        margin-top: 24px;
+        padding: 18px 24px;
+        border-radius: 0 10px 10px 0;
+        margin-top: 28px;
       }
 
       .note-box p {
         font-size: 14px;
+        color: var(--text-secondary);
+        line-height: 1.7;
+      }
+      .note-box strong {
+        font-weight: 600;
         color: var(--text);
       }
 
-      .note-box strong {
-        font-weight: 600;
+      /* Investment */
+      .investment-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: 8px;
+      }
+
+      .investment-card {
+        padding: 32px 28px;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        text-align: center;
+      }
+
+      .investment-card.highlight {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+      }
+
+      .investment-label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        opacity: 0.5;
+        margin-bottom: 12px;
+      }
+
+      .investment-value {
+        font-size: 36px;
+        font-weight: 900;
+        letter-spacing: -1px;
+        line-height: 1;
+      }
+
+      .investment-card.highlight .investment-value {
+        color: var(--accent-mid);
+      }
+
+      .investment-unit {
+        font-size: 13px;
+        font-weight: 500;
+        margin-top: 6px;
+        opacity: 0.6;
       }
 
       /* Footer */
       .footer {
-        padding: 40px 0;
+        padding: 48px 0;
         text-align: center;
-        color: var(--text-secondary);
+        color: var(--text-tertiary);
         font-size: 13px;
       }
 
@@ -552,7 +744,7 @@
         margin: 0 auto 16px;
       }
 
-      /* Print */
+      /* Print & Responsive */
       @media print {
         .header {
           padding: 32px 0 24px;
@@ -561,35 +753,47 @@
           padding: 32px 0;
         }
         .phase {
-          padding-bottom: 24px;
-        }
-        body {
-          font-size: 13px;
+          padding-bottom: 20px;
         }
         .summary {
           margin-top: -16px;
+          box-shadow: none;
         }
       }
 
-      @media (max-width: 640px) {
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 24px;
+        }
         .summary {
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: repeat(3, 1fr);
         }
         .stack-grid {
-          grid-template-columns: 1fr;
+          grid-template-columns: repeat(2, 1fr);
         }
         .current-grid {
           grid-template-columns: 1fr;
         }
+        .investment-grid {
+          grid-template-columns: 1fr;
+        }
         .header h1 {
-          font-size: 28px;
+          font-size: 32px;
         }
         .header-meta {
           flex-wrap: wrap;
-          gap: 20px;
+          gap: 24px;
         }
         .week-grid {
           grid-template-columns: 64px 1fr;
+        }
+        .scope-callout {
+          flex-wrap: wrap;
+          gap: 16px;
+        }
+        .phase-header {
+          flex-direction: column;
+          gap: 8px;
         }
       }
     </style>
@@ -598,11 +802,13 @@
     <!-- Header -->
     <div class="header">
       <div class="container">
-        <div class="header-badge">Migration Plan</div>
-        <h1>Mentegram API Modernization</h1>
+        <div class="header-badge">Full-Stack Migration Plan</div>
+        <h1>Mentegram <span>Platform</span><br />Modernization</h1>
         <p>
-          Complete migration from legacy PHP/MySQL to a modern Next.js stack
-          with Clerk, Drizzle ORM, and Vercel infrastructure.
+          Complete migration of the Mentegram API and Dashboard from legacy
+          PHP/AngularJS to a unified Next.js application with Clerk
+          authentication, Drizzle ORM, and Vercel infrastructure. Built with
+          AI-assisted development using Claude.
         </p>
         <div class="header-meta">
           <div class="header-meta-item">
@@ -611,11 +817,11 @@
           </div>
           <div class="header-meta-item">
             <span class="header-meta-label">Duration</span>
-            <span class="header-meta-value">5 &ndash; 7 Weeks</span>
+            <span class="header-meta-value">7 &ndash; 9 Weeks</span>
           </div>
           <div class="header-meta-item">
-            <span class="header-meta-label">Effort</span>
-            <span class="header-meta-value">27 &ndash; 35 Dev Days</span>
+            <span class="header-meta-label">Total Effort</span>
+            <span class="header-meta-value">35 &ndash; 46 Dev Days</span>
           </div>
           <div class="header-meta-item">
             <span class="header-meta-label">Status</span>
@@ -629,15 +835,19 @@
     <div class="container">
       <div class="summary">
         <div class="summary-card">
-          <div class="summary-card-value">52</div>
-          <div class="summary-card-label">Database Tables</div>
-        </div>
-        <div class="summary-card">
-          <div class="summary-card-value">~165</div>
+          <div class="summary-card-value">~98</div>
           <div class="summary-card-label">API Endpoints</div>
         </div>
         <div class="summary-card">
-          <div class="summary-card-value">13</div>
+          <div class="summary-card-value">47</div>
+          <div class="summary-card-label">UI Pages</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-card-value">48</div>
+          <div class="summary-card-label">DB Tables</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-card-value">18</div>
           <div class="summary-card-label">Phases</div>
         </div>
         <div class="summary-card">
@@ -647,7 +857,7 @@
       </div>
     </div>
 
-    <!-- Current → New -->
+    <!-- Transformation -->
     <div class="container">
       <div class="section">
         <div class="section-label">Transformation</div>
@@ -658,18 +868,19 @@
         </p>
         <div class="current-grid">
           <div class="current-item">
-            <h4>Language</h4>
+            <h4>Backend</h4>
             <p>
-              <span class="old">PHP 5.5</span><span class="arrow">&rarr;</span
-              ><span class="new">TypeScript</span>
+              <span class="old">PHP 5.5 (Custom MVC)</span
+              ><span class="arrow">&rarr;</span
+              ><span class="new">Next.js API Routes (TypeScript)</span>
             </p>
           </div>
           <div class="current-item">
-            <h4>Framework</h4>
+            <h4>Frontend</h4>
             <p>
-              <span class="old">Custom MVC</span
+              <span class="old">AngularJS 1.5 + Bootstrap</span
               ><span class="arrow">&rarr;</span
-              ><span class="new">Next.js 14+ (App Router)</span>
+              ><span class="new">Next.js + React + Tailwind</span>
             </p>
           </div>
           <div class="current-item">
@@ -695,10 +906,10 @@
             </p>
           </div>
           <div class="current-item">
-            <h4>Document Storage</h4>
+            <h4>Secure Storage</h4>
             <p>
               <span class="old">TrueVault</span><span class="arrow">&rarr;</span
-              ><span class="new">Encrypted JSONB</span>
+              ><span class="new">Encrypted JSONB (AES-256)</span>
             </p>
           </div>
           <div class="current-item">
@@ -706,11 +917,11 @@
             <p>
               <span class="old">Google Cloud Storage</span
               ><span class="arrow">&rarr;</span
-              ><span class="new">Vercel Blob / S3</span>
+              ><span class="new">Vercel Blob</span>
             </p>
           </div>
           <div class="current-item">
-            <h4>Cron Jobs</h4>
+            <h4>Background Jobs</h4>
             <p>
               <span class="old">App Engine Cron</span
               ><span class="arrow">&rarr;</span
@@ -727,13 +938,13 @@
         <div class="section-label">Architecture</div>
         <h2>Target Technology Stack</h2>
         <p class="section-desc">
-          A modern, fully-managed infrastructure with minimal operational
-          overhead.
+          A unified full-stack application on fully-managed infrastructure with
+          minimal operational overhead.
         </p>
         <div class="stack-grid">
           <div class="stack-item">
             <span class="stack-item-layer">Framework</span>
-            <span class="stack-item-tech">Next.js 14+ (App Router)</span>
+            <span class="stack-item-tech">Next.js 14+</span>
           </div>
           <div class="stack-item">
             <span class="stack-item-layer">Language</span>
@@ -745,11 +956,23 @@
           </div>
           <div class="stack-item">
             <span class="stack-item-layer">Database</span>
-            <span class="stack-item-tech">Vercel Postgres (Neon)</span>
+            <span class="stack-item-tech">Vercel Postgres</span>
           </div>
           <div class="stack-item">
             <span class="stack-item-layer">ORM</span>
             <span class="stack-item-tech">Drizzle</span>
+          </div>
+          <div class="stack-item">
+            <span class="stack-item-layer">UI Library</span>
+            <span class="stack-item-tech">shadcn/ui</span>
+          </div>
+          <div class="stack-item">
+            <span class="stack-item-layer">Styling</span>
+            <span class="stack-item-tech">Tailwind CSS</span>
+          </div>
+          <div class="stack-item">
+            <span class="stack-item-layer">Charts</span>
+            <span class="stack-item-tech">Recharts</span>
           </div>
           <div class="stack-item">
             <span class="stack-item-layer">Validation</span>
@@ -757,7 +980,7 @@
           </div>
           <div class="stack-item">
             <span class="stack-item-layer">Payments</span>
-            <span class="stack-item-tech">Stripe + PayPal</span>
+            <span class="stack-item-tech">Stripe</span>
           </div>
           <div class="stack-item">
             <span class="stack-item-layer">Email</span>
@@ -766,18 +989,6 @@
           <div class="stack-item">
             <span class="stack-item-layer">Hosting</span>
             <span class="stack-item-tech">Vercel</span>
-          </div>
-          <div class="stack-item">
-            <span class="stack-item-layer">Cron</span>
-            <span class="stack-item-tech">Vercel Cron</span>
-          </div>
-          <div class="stack-item">
-            <span class="stack-item-layer">Storage</span>
-            <span class="stack-item-tech">Vercel Blob</span>
-          </div>
-          <div class="stack-item">
-            <span class="stack-item-layer">Encryption</span>
-            <span class="stack-item-tech">AES-256-GCM (App Layer)</span>
           </div>
         </div>
       </div>
@@ -789,31 +1000,60 @@
         <div class="section-label">Execution</div>
         <h2>Migration Phases</h2>
         <p class="section-desc">
-          The migration is broken into 13 sequential phases, each delivering a
-          testable increment of functionality.
+          18 phases organized by feature area. Each phase delivers both the API
+          endpoints and UI pages together, building a testable increment of the
+          application.
         </p>
+
+        <!-- Scope callout -->
+        <div class="scope-callout">
+          <div class="scope-callout-item">
+            <div class="scope-callout-value">~98</div>
+            <div class="scope-callout-label">API endpoints to build</div>
+            <div class="scope-callout-note">
+              Dashboard-used only (of ~165 total legacy)
+            </div>
+          </div>
+          <div class="scope-callout-item">
+            <div class="scope-callout-value">47</div>
+            <div class="scope-callout-label">UI pages to rebuild</div>
+            <div class="scope-callout-note">
+              AngularJS &rarr; React (Next.js App Router)
+            </div>
+          </div>
+          <div class="scope-callout-item">
+            <div class="scope-callout-value">48</div>
+            <div class="scope-callout-label">Database tables</div>
+            <div class="scope-callout-note">
+              MySQL &rarr; PostgreSQL via Drizzle
+            </div>
+          </div>
+        </div>
 
         <!-- Phase 0 -->
         <div class="phase">
           <div class="phase-dot"></div>
           <div class="phase-header">
             <div class="phase-title">
-              <span class="phase-number">Phase 0</span> Project Setup &amp;
+              <span class="phase-number">00</span> Project Setup &amp;
               Infrastructure
             </div>
-            <span class="phase-effort">1 day</span>
+            <div class="phase-effort-group">
+              <span class="phase-effort api">API 0.5d</span>
+              <span class="phase-effort ui">UI 0.5d</span>
+            </div>
           </div>
           <p class="phase-desc">
-            Initialize the Next.js project, configure Drizzle ORM with Vercel
-            Postgres, set up Clerk authentication project, configure environment
-            variables, and establish the CI/CD pipeline.
+            Initialize Next.js project with App Router, configure Drizzle ORM
+            with Vercel Postgres, set up Clerk project, Tailwind CSS, shadcn/ui,
+            environment variables, and CI/CD pipeline.
           </p>
           <div class="phase-items">
             <span class="phase-tag">Next.js init</span>
             <span class="phase-tag">Drizzle config</span>
             <span class="phase-tag">Clerk project</span>
+            <span class="phase-tag">Tailwind + shadcn/ui</span>
             <span class="phase-tag">Vercel deploy</span>
-            <span class="phase-tag">Docker Compose</span>
             <span class="phase-tag">ESLint + Prettier</span>
           </div>
         </div>
@@ -823,20 +1063,22 @@
           <div class="phase-dot"></div>
           <div class="phase-header">
             <div class="phase-title">
-              <span class="phase-number">Phase 1</span> Database Schema
+              <span class="phase-number">01</span> Database Schema
             </div>
-            <span class="phase-effort">1 &ndash; 2 days</span>
+            <div class="phase-effort-group">
+              <span class="phase-effort api">API 1.5d</span>
+            </div>
           </div>
           <p class="phase-desc">
-            Translate all 52 MySQL tables to Drizzle/PostgreSQL schemas. Convert
-            MySQL-specific types (BIGINT timestamps, BINARY hashes, LONGTEXT
-            JSON) to native Postgres equivalents. Generate and run migrations.
+            Translate 48 MySQL tables to Drizzle/PostgreSQL schemas. Convert
+            BIGINT timestamps, BINARY hashes, and LONGTEXT JSON to native
+            Postgres types. Generate and run all migrations. Seed reference
+            data.
           </p>
           <div class="phase-items">
-            <span class="phase-tag">52 tables</span>
+            <span class="phase-tag">48 tables</span>
             <span class="phase-tag">Drizzle schemas</span>
-            <span class="phase-tag">Indexes</span>
-            <span class="phase-tag">Foreign keys</span>
+            <span class="phase-tag">Indexes &amp; FKs</span>
             <span class="phase-tag">Type conversions</span>
             <span class="phase-tag">Seed data</span>
           </div>
@@ -847,23 +1089,26 @@
           <div class="phase-dot"></div>
           <div class="phase-header">
             <div class="phase-title">
-              <span class="phase-number">Phase 2</span> Authentication &amp;
+              <span class="phase-number">02</span> Authentication &amp;
               Authorization
             </div>
-            <span class="phase-effort">1 day</span>
+            <div class="phase-effort-group">
+              <span class="phase-effort api">API 0.5d</span>
+              <span class="phase-effort ui">UI 0.5d</span>
+            </div>
           </div>
           <p class="phase-desc">
-            Configure Clerk for three user types (admin, therapist, client). Set
-            up webhook sync to database, role-based middleware, and organization
-            support. This eliminates ~15 legacy auth endpoints and 7 token
-            tables.
+            Configure Clerk for therapist, client, and admin roles. Build
+            webhook sync to database, role-based route middleware, and
+            organization support. Set up sign-in/sign-up pages. Eliminates ~15
+            legacy auth endpoints and 7 token tables.
           </p>
           <div class="phase-items">
             <span class="phase-tag">Clerk middleware</span>
             <span class="phase-tag">Role-based access</span>
             <span class="phase-tag">Webhook sync</span>
+            <span class="phase-tag">Sign-in / Sign-up pages</span>
             <span class="phase-tag">Org support</span>
-            <span class="phase-tag">Kiosk mode</span>
           </div>
         </div>
 
@@ -872,51 +1117,52 @@
           <div class="phase-dot"></div>
           <div class="phase-header">
             <div class="phase-title">
-              <span class="phase-number">Phase 3</span> Core Entity CRUD
+              <span class="phase-number">03</span> Shared UI Components &amp;
+              Layout
             </div>
-            <span class="phase-effort">3 &ndash; 4 days</span>
+            <div class="phase-effort-group">
+              <span class="phase-effort ui">UI 2.5d</span>
+            </div>
           </div>
           <p class="phase-desc">
-            Build complete CRUD operations for the four core entities:
-            Therapists, Clients, Organizations, and Admins. Includes client
-            management, organization membership, therapist-client relationships,
-            and admin controls.
+            Build the application shell: sidebar navigation, top navbar with
+            breadcrumbs, org/practice context switcher, reusable data tables
+            with sorting and filtering, modal system, loading states, toast
+            notifications, and responsive layout.
           </p>
           <div class="phase-items">
-            <span class="phase-tag">~45 endpoints</span>
-            <span class="phase-tag">Therapist CRUD</span>
-            <span class="phase-tag">Client CRUD</span>
-            <span class="phase-tag">Organization CRUD</span>
-            <span class="phase-tag">Admin CRUD</span>
-            <span class="phase-tag">Membership mgmt</span>
+            <span class="phase-tag">Sidebar nav</span>
+            <span class="phase-tag">Navbar + breadcrumbs</span>
+            <span class="phase-tag">Data tables</span>
+            <span class="phase-tag">Modals &amp; dialogs</span>
+            <span class="phase-tag">Loading states</span>
+            <span class="phase-tag">Responsive layout</span>
           </div>
         </div>
 
         <!-- Phase 4 -->
         <div class="phase">
-          <div class="phase-dot critical"></div>
+          <div class="phase-dot"></div>
           <div class="phase-header">
             <div class="phase-title">
-              <span class="phase-number">Phase 4</span> Clinical Data &mdash;
-              Questionnaires &amp; Answers
+              <span class="phase-number">04</span> Dashboard &amp; Navigation
             </div>
-            <span class="phase-effort critical">5 &ndash; 7 days</span>
+            <div class="phase-effort-group">
+              <span class="phase-effort api">API 0.5d</span>
+              <span class="phase-effort ui">UI 1d</span>
+            </div>
           </div>
           <p class="phase-desc">
-            The most complex phase. Port the full questionnaire lifecycle:
-            templates, assignment, answer submission, scoring algorithms,
-            measurements, improvement tracking, protocols, and clinical notes.
-            Includes K5, K10, and PMHC report logic.
+            Build the main dashboard page with organization cards, quick action
+            buttons, mini calendar widget, and tutorial/onboarding flow. Support
+            switching between organization and private practice contexts.
           </p>
           <div class="phase-items">
-            <span class="phase-tag">~32 endpoints</span>
-            <span class="phase-tag">Templates</span>
-            <span class="phase-tag">Questionnaires</span>
-            <span class="phase-tag">Answers</span>
-            <span class="phase-tag">Scoring engine</span>
-            <span class="phase-tag">Measurements</span>
-            <span class="phase-tag">Protocols</span>
-            <span class="phase-tag">Notes</span>
+            <span class="phase-tag">Dashboard page</span>
+            <span class="phase-tag">Org cards</span>
+            <span class="phase-tag">Quick actions</span>
+            <span class="phase-tag">Calendar widget</span>
+            <span class="phase-tag">Context switcher</span>
           </div>
         </div>
 
@@ -925,15 +1171,265 @@
           <div class="phase-dot critical"></div>
           <div class="phase-header">
             <div class="phase-title">
-              <span class="phase-number">Phase 5</span> TrueVault Replacement
+              <span class="phase-number">05</span> Client Management
             </div>
-            <span class="phase-effort critical">2 &ndash; 3 days</span>
+            <div class="phase-effort-group">
+              <span class="phase-effort api">API 2.5d</span>
+              <span class="phase-effort ui">UI 3d</span>
+            </div>
           </div>
           <p class="phase-desc">
-            Replace the TrueVault encrypted document storage with
-            application-level AES-256-GCM encryption stored in PostgreSQL JSONB
-            columns. Build encryption service and migrate all document
-            references.
+            Complete client lifecycle: list page with search, filters, and
+            status badges; multi-step creation wizard; edit/manage page with
+            sharing, notifications, and kiosk settings; client record dashboard;
+            activity timeline. ~16 API endpoints.
+          </p>
+          <div class="phase-items">
+            <span class="phase-tag">~16 endpoints</span>
+            <span class="phase-tag">Clients list</span>
+            <span class="phase-tag">Create wizard</span>
+            <span class="phase-tag">Client record</span>
+            <span class="phase-tag">Manage settings</span>
+            <span class="phase-tag">Activity timeline</span>
+            <span class="phase-tag">High-risk toggle</span>
+          </div>
+        </div>
+
+        <!-- Phase 6 -->
+        <div class="phase">
+          <div class="phase-dot critical"></div>
+          <div class="phase-header">
+            <div class="phase-title">
+              <span class="phase-number">06</span> Questionnaires &amp;
+              Instruments
+            </div>
+            <div class="phase-effort-group">
+              <span class="phase-effort api">API 3d</span>
+              <span class="phase-effort ui">UI 3.5d</span>
+            </div>
+          </div>
+          <p class="phase-desc">
+            The most complex phase. Dynamic instrument builder with multiple
+            question types; template library with copy/reuse; questionnaire
+            assignment and activation; answer submission and tracking; scoring
+            engine with measurement calculations; protocols CRUD. ~12 API
+            endpoints.
+          </p>
+          <div class="phase-items">
+            <span class="phase-tag">~12 endpoints</span>
+            <span class="phase-tag">Instrument builder</span>
+            <span class="phase-tag">Template library</span>
+            <span class="phase-tag">Preview</span>
+            <span class="phase-tag">Scoring engine</span>
+            <span class="phase-tag">Measurements</span>
+            <span class="phase-tag">Protocols</span>
+            <span class="phase-tag">Answer tracking</span>
+          </div>
+        </div>
+
+        <!-- Phase 7 -->
+        <div class="phase">
+          <div class="phase-dot critical"></div>
+          <div class="phase-header">
+            <div class="phase-title">
+              <span class="phase-number">07</span> Charts &amp; Data
+              Visualization
+            </div>
+            <div class="phase-effort-group">
+              <span class="phase-effort api">API 1d</span>
+              <span class="phase-effort ui">UI 2d</span>
+            </div>
+          </div>
+          <p class="phase-desc">
+            Replace C3.js/D3.js charts with Recharts. Build score timeline
+            visualizations, donut/pie charts for measurements, improvement
+            tracking graphs, and interactive data displays for the client record
+            page.
+          </p>
+          <div class="phase-items">
+            <span class="phase-tag">Recharts setup</span>
+            <span class="phase-tag">Score timelines</span>
+            <span class="phase-tag">Donut charts</span>
+            <span class="phase-tag">Improvement graphs</span>
+            <span class="phase-tag">Interactive tooltips</span>
+          </div>
+        </div>
+
+        <!-- Phase 8 -->
+        <div class="phase">
+          <div class="phase-dot"></div>
+          <div class="phase-header">
+            <div class="phase-title">
+              <span class="phase-number">08</span> Clinical Notes
+            </div>
+            <div class="phase-effort-group">
+              <span class="phase-effort api">API 0.5d</span>
+              <span class="phase-effort ui">UI 1d</span>
+            </div>
+          </div>
+          <p class="phase-desc">
+            Notes CRUD with DAP and SOAP templates, timeline view, delete
+            confirmation modals, and note linking to questionnaires. ~5 API
+            endpoints.
+          </p>
+          <div class="phase-items">
+            <span class="phase-tag">~5 endpoints</span>
+            <span class="phase-tag">Note CRUD</span>
+            <span class="phase-tag">DAP/SOAP templates</span>
+            <span class="phase-tag">Timeline view</span>
+          </div>
+        </div>
+
+        <!-- Phase 9 -->
+        <div class="phase">
+          <div class="phase-dot"></div>
+          <div class="phase-header">
+            <div class="phase-title">
+              <span class="phase-number">09</span> Organization Management
+            </div>
+            <div class="phase-effort-group">
+              <span class="phase-effort api">API 1.5d</span>
+              <span class="phase-effort ui">UI 2d</span>
+            </div>
+          </div>
+          <p class="phase-desc">
+            Organization dashboard, settings page with logo upload and data
+            export, therapist/provider membership management, manager
+            administration, client dashboard view, template alerts
+            configuration, and tags. ~18 API endpoints.
+          </p>
+          <div class="phase-items">
+            <span class="phase-tag">~18 endpoints</span>
+            <span class="phase-tag">Org dashboard</span>
+            <span class="phase-tag">Settings + logo</span>
+            <span class="phase-tag">Therapist mgmt</span>
+            <span class="phase-tag">Manager mgmt</span>
+            <span class="phase-tag">Template alerts</span>
+            <span class="phase-tag">Data export</span>
+          </div>
+        </div>
+
+        <!-- Phase 10 -->
+        <div class="phase">
+          <div class="phase-dot"></div>
+          <div class="phase-header">
+            <div class="phase-title">
+              <span class="phase-number">10</span> Scheduling &amp; Calendar
+            </div>
+            <div class="phase-effort-group">
+              <span class="phase-effort api">API 0.5d</span>
+              <span class="phase-effort ui">UI 1d</span>
+            </div>
+          </div>
+          <p class="phase-desc">
+            Full calendar view using FullCalendar React, appointment
+            create/edit/delete modals with client selection, date/time pickers,
+            and email reminders. ~6 API endpoints.
+          </p>
+          <div class="phase-items">
+            <span class="phase-tag">~6 endpoints</span>
+            <span class="phase-tag">FullCalendar React</span>
+            <span class="phase-tag">Appointment modal</span>
+            <span class="phase-tag">Reminders</span>
+          </div>
+        </div>
+
+        <!-- Phase 11 -->
+        <div class="phase">
+          <div class="phase-dot"></div>
+          <div class="phase-header">
+            <div class="phase-title">
+              <span class="phase-number">11</span> Billing &amp; Payments
+            </div>
+            <div class="phase-effort-group">
+              <span class="phase-effort api">API 1d</span>
+              <span class="phase-effort ui">UI 0.5d</span>
+            </div>
+          </div>
+          <p class="phase-desc">
+            Stripe integration for subscriptions, payment methods, and webhook
+            handling. Billing page with transaction history, upgrade/downgrade
+            flow, cancellation, and invoice downloads. ~4 API endpoints.
+          </p>
+          <div class="phase-items">
+            <span class="phase-tag">~4 endpoints</span>
+            <span class="phase-tag">Stripe SDK</span>
+            <span class="phase-tag">Subscriptions</span>
+            <span class="phase-tag">Billing page</span>
+            <span class="phase-tag">Upgrade flow</span>
+            <span class="phase-tag">Webhook</span>
+          </div>
+        </div>
+
+        <!-- Phase 12 -->
+        <div class="phase">
+          <div class="phase-dot critical"></div>
+          <div class="phase-header">
+            <div class="phase-title">
+              <span class="phase-number">12</span> Reports &amp; Downloads
+            </div>
+            <div class="phase-effort-group">
+              <span class="phase-effort api">API 1.5d</span>
+              <span class="phase-effort ui">UI 1d</span>
+            </div>
+          </div>
+          <p class="phase-desc">
+            PDF generation for questionnaire results and invoices. Client
+            reports, therapist reports, organization reports with date-range
+            filtering, PMHC compliance reports. File upload/download via Vercel
+            Blob. ~8 API endpoints.
+          </p>
+          <div class="phase-items">
+            <span class="phase-tag">~8 endpoints</span>
+            <span class="phase-tag">PDF generation</span>
+            <span class="phase-tag">Client reports</span>
+            <span class="phase-tag">Org reports</span>
+            <span class="phase-tag">PMHC compliance</span>
+            <span class="phase-tag">File storage</span>
+          </div>
+        </div>
+
+        <!-- Phase 13 -->
+        <div class="phase">
+          <div class="phase-dot"></div>
+          <div class="phase-header">
+            <div class="phase-title">
+              <span class="phase-number">13</span> Screening Devices
+            </div>
+            <div class="phase-effort-group">
+              <span class="phase-effort api">API 0.5d</span>
+              <span class="phase-effort ui">UI 0.5d</span>
+            </div>
+          </div>
+          <p class="phase-desc">
+            Screening device management page with pairing codes, kiosk mode
+            toggle, real-time device connection status via MQTT/WebSocket, and
+            connected device counter. ~6 API endpoints.
+          </p>
+          <div class="phase-items">
+            <span class="phase-tag">~6 endpoints</span>
+            <span class="phase-tag">Device pairing</span>
+            <span class="phase-tag">Kiosk mode</span>
+            <span class="phase-tag">MQTT real-time</span>
+          </div>
+        </div>
+
+        <!-- Phase 14 -->
+        <div class="phase">
+          <div class="phase-dot critical"></div>
+          <div class="phase-header">
+            <div class="phase-title">
+              <span class="phase-number">14</span> TrueVault Replacement
+            </div>
+            <div class="phase-effort-group">
+              <span class="phase-effort api">API 2.5d</span>
+            </div>
+          </div>
+          <p class="phase-desc">
+            Replace TrueVault encrypted document storage with application-level
+            AES-256-GCM encryption in PostgreSQL JSONB columns. Build encryption
+            service, migrate all document references for client profiles,
+            answers, and notes.
           </p>
           <div class="phase-items">
             <span class="phase-tag">Encryption service</span>
@@ -945,136 +1441,49 @@
           </div>
         </div>
 
-        <!-- Phase 6 -->
+        <!-- Phase 15 -->
         <div class="phase">
           <div class="phase-dot"></div>
           <div class="phase-header">
             <div class="phase-title">
-              <span class="phase-number">Phase 6</span> Payments &amp; Billing
+              <span class="phase-number">15</span> Background Jobs &amp;
+              Analytics
             </div>
-            <span class="phase-effort">2 &ndash; 3 days</span>
+            <div class="phase-effort-group">
+              <span class="phase-effort api">API 1d</span>
+            </div>
           </div>
           <p class="phase-desc">
-            Integrate Stripe SDK for subscription management, payment methods,
-            and webhook handling. Port PayPal IPN handler. Implement invoice
-            generation and account billing log.
-          </p>
-          <div class="phase-items">
-            <span class="phase-tag">~10 endpoints</span>
-            <span class="phase-tag">Stripe subscriptions</span>
-            <span class="phase-tag">Webhooks</span>
-            <span class="phase-tag">PayPal IPN</span>
-            <span class="phase-tag">Invoices</span>
-          </div>
-        </div>
-
-        <!-- Phase 7 -->
-        <div class="phase">
-          <div class="phase-dot"></div>
-          <div class="phase-header">
-            <div class="phase-title">
-              <span class="phase-number">Phase 7</span> Scheduling, Screening
-              &amp; Notifications
-            </div>
-            <span class="phase-effort">1 &ndash; 2 days</span>
-          </div>
-          <p class="phase-desc">
-            Build appointment scheduling CRUD, screening device pairing and
-            management flows, and push notification infrastructure using
-            existing device tokens.
-          </p>
-          <div class="phase-items">
-            <span class="phase-tag">~12 endpoints</span>
-            <span class="phase-tag">Appointments</span>
-            <span class="phase-tag">Device pairing</span>
-            <span class="phase-tag">Kiosk sessions</span>
-            <span class="phase-tag">Push notifications</span>
-          </div>
-        </div>
-
-        <!-- Phase 8 -->
-        <div class="phase">
-          <div class="phase-dot critical"></div>
-          <div class="phase-header">
-            <div class="phase-title">
-              <span class="phase-number">Phase 8</span> Downloads, Reports &amp;
-              Storage
-            </div>
-            <span class="phase-effort critical">3 &ndash; 4 days</span>
-          </div>
-          <p class="phase-desc">
-            Implement file upload/download via Vercel Blob, PDF generation for
-            questionnaires and invoices, and all report generation endpoints
-            including organization-level PMHC and date-range reports.
-          </p>
-          <div class="phase-items">
-            <span class="phase-tag">~12 endpoints</span>
-            <span class="phase-tag">File uploads</span>
-            <span class="phase-tag">PDF generation</span>
-            <span class="phase-tag">Report export</span>
-            <span class="phase-tag">Org reports</span>
-          </div>
-        </div>
-
-        <!-- Phase 9 -->
-        <div class="phase">
-          <div class="phase-dot"></div>
-          <div class="phase-header">
-            <div class="phase-title">
-              <span class="phase-number">Phase 9</span> Background Jobs
-            </div>
-            <span class="phase-effort">0.5 days</span>
-          </div>
-          <p class="phase-desc">
-            Configure Vercel Cron for 7 recurring jobs: reminders (every 5 min),
-            scheduling checks (every 5 min), hourly tracking aggregation, daily
-            tracking, customer care emails, tracking alerts, and tag report
-            generation.
+            Configure Vercel Cron for 7 recurring jobs (reminders, scheduling
+            checks, tracking aggregation, customer care emails, tracking
+            alerts). Set up API request logging, usage tracking, and error
+            monitoring.
           </p>
           <div class="phase-items">
             <span class="phase-tag">7 cron routes</span>
-            <span class="phase-tag">vercel.json config</span>
-            <span class="phase-tag">CRON_SECRET auth</span>
-          </div>
-        </div>
-
-        <!-- Phase 10 -->
-        <div class="phase">
-          <div class="phase-dot"></div>
-          <div class="phase-header">
-            <div class="phase-title">
-              <span class="phase-number">Phase 10</span> Tracking &amp;
-              Analytics
-            </div>
-            <span class="phase-effort">0.5 days</span>
-          </div>
-          <p class="phase-desc">
-            Implement API request logging middleware, usage tracking with hourly
-            and daily aggregation, client/therapist view tracking, and error
-            logging integration.
-          </p>
-          <div class="phase-items">
+            <span class="phase-tag">Vercel Cron config</span>
             <span class="phase-tag">Request logging</span>
             <span class="phase-tag">Usage tracking</span>
-            <span class="phase-tag">View tracking</span>
             <span class="phase-tag">Error monitoring</span>
           </div>
         </div>
 
-        <!-- Phase 11 -->
+        <!-- Phase 16 -->
         <div class="phase">
           <div class="phase-dot critical"></div>
           <div class="phase-header">
             <div class="phase-title">
-              <span class="phase-number">Phase 11</span> Data Migration
+              <span class="phase-number">16</span> Data Migration
             </div>
-            <span class="phase-effort critical">3 &ndash; 4 days</span>
+            <div class="phase-effort-group">
+              <span class="phase-effort api">API 3.5d</span>
+            </div>
           </div>
           <p class="phase-desc">
-            Write TypeScript migration scripts to extract data from MySQL,
-            transform types, decrypt TrueVault documents, bulk-import users to
-            Clerk, and load everything into PostgreSQL. Includes validation,
-            dry-run on staging, and cutover planning.
+            TypeScript migration scripts to extract data from MySQL, transform
+            types, decrypt TrueVault documents, bulk-import users to Clerk, and
+            load into PostgreSQL. Includes validation scripts, staging dry-run,
+            and zero-downtime cutover planning.
           </p>
           <div class="phase-items">
             <span class="phase-tag">MySQL export</span>
@@ -1086,26 +1495,30 @@
           </div>
         </div>
 
-        <!-- Phase 12 -->
+        <!-- Phase 17 -->
         <div class="phase">
           <div class="phase-dot"></div>
           <div class="phase-header">
             <div class="phase-title">
-              <span class="phase-number">Phase 12</span> QA, Hardening &amp;
-              Launch
+              <span class="phase-number">17</span> QA, Hardening &amp; Launch
             </div>
-            <span class="phase-effort">3 &ndash; 4 days</span>
+            <div class="phase-effort-group">
+              <span class="phase-effort api">API 1.5d</span>
+              <span class="phase-effort ui">UI 1.5d</span>
+            </div>
           </div>
           <p class="phase-desc">
-            End-to-end testing of all flows, API parity validation against the
-            legacy system, rate limiting, security audit (OWASP top 10),
-            performance testing, monitoring setup, and production launch.
+            End-to-end testing of all user flows, API parity validation against
+            legacy system, rate limiting, OWASP security audit, performance
+            optimization, responsive polish, monitoring setup, and production
+            launch.
           </p>
           <div class="phase-items">
             <span class="phase-tag">E2E testing</span>
             <span class="phase-tag">Parity checks</span>
             <span class="phase-tag">Security audit</span>
             <span class="phase-tag">Performance</span>
+            <span class="phase-tag">Responsive QA</span>
             <span class="phase-tag">Monitoring</span>
             <span class="phase-tag">Go-live</span>
           </div>
@@ -1119,199 +1532,212 @@
         <div class="section-label">Estimation</div>
         <h2>Effort Breakdown</h2>
         <p class="section-desc">
-          Estimated developer-days for each phase based on scope, complexity,
-          and AI-assisted development.
+          Estimated developer-days for each phase, split by API (backend,
+          database, integrations) and UI (pages, components, styling) effort.
+          All estimates assume AI-assisted &ldquo;vibe coding&rdquo; with Claude
+          &mdash; a developer prompting Claude to generate, review, and iterate
+          on code in real-time.
         </p>
 
-        <!-- Visual bar -->
-        <div class="bar-container">
-          <div
-            class="bar-segment"
-            style="width: 3.2%; background: #6366f1"
-            title="Phase 0"
-          ></div>
-          <div
-            class="bar-segment"
-            style="width: 4.8%; background: #818cf8"
-            title="Phase 1"
-          ></div>
-          <div
-            class="bar-segment"
-            style="width: 3.2%; background: #a5b4fc"
-            title="Phase 2"
-          ></div>
-          <div
-            class="bar-segment"
-            style="width: 11.3%; background: #6366f1"
-            title="Phase 3"
-          ></div>
-          <div
-            class="bar-segment"
-            style="width: 19.4%; background: #f59e0b"
-            title="Phase 4"
-          ></div>
-          <div
-            class="bar-segment"
-            style="width: 8.1%; background: #f59e0b"
-            title="Phase 5"
-          ></div>
-          <div
-            class="bar-segment"
-            style="width: 8.1%; background: #818cf8"
-            title="Phase 6"
-          ></div>
-          <div
-            class="bar-segment"
-            style="width: 4.8%; background: #a5b4fc"
-            title="Phase 7"
-          ></div>
-          <div
-            class="bar-segment"
-            style="width: 11.3%; background: #f59e0b"
-            title="Phase 8"
-          ></div>
-          <div
-            class="bar-segment"
-            style="width: 1.6%; background: #c7d2fe"
-            title="Phase 9"
-          ></div>
-          <div
-            class="bar-segment"
-            style="width: 1.6%; background: #c7d2fe"
-            title="Phase 10"
-          ></div>
-          <div
-            class="bar-segment"
-            style="width: 11.3%; background: #f59e0b"
-            title="Phase 11"
-          ></div>
-          <div
-            class="bar-segment"
-            style="width: 11.3%; background: #6366f1"
-            title="Phase 12"
-          ></div>
-        </div>
-        <div class="bar-legend">
-          <div class="bar-legend-item">
-            <span class="bar-legend-dot" style="background: #6366f1"></span
-            >Infrastructure &amp; QA
-          </div>
-          <div class="bar-legend-item">
-            <span class="bar-legend-dot" style="background: #818cf8"></span>CRUD
-            &amp; Integrations
-          </div>
-          <div class="bar-legend-item">
-            <span class="bar-legend-dot" style="background: #f59e0b"></span
-            >Complex / Critical Path
-          </div>
-          <div class="bar-legend-item">
-            <span class="bar-legend-dot" style="background: #c7d2fe"></span
-            >Lightweight
-          </div>
-        </div>
-
-        <table class="effort-table" style="margin-top: 32px">
+        <table class="effort-table">
           <thead>
             <tr>
+              <th style="width: 44px"></th>
               <th>Phase</th>
-              <th>Scope</th>
-              <th style="text-align: right">Coverage</th>
-              <th style="text-align: right">Effort</th>
+              <th class="col-api" style="width: 80px">API</th>
+              <th class="col-ui" style="width: 80px">UI</th>
+              <th class="col-total" style="width: 100px; text-align: right">
+                Total
+              </th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="phase-num">0</td>
+              <td class="phase-num">00</td>
               <td class="scope-name">Project Setup &amp; Infrastructure</td>
-              <td class="detail-text">&mdash;</td>
-              <td class="effort-days">1 day</td>
+              <td class="effort-api">0.5</td>
+              <td class="effort-ui">0.5</td>
+              <td class="effort-total">1 day</td>
             </tr>
             <tr>
-              <td class="phase-num">1</td>
-              <td class="scope-name">Database Schema (Drizzle)</td>
-              <td class="detail-text">52 tables</td>
-              <td class="effort-days">1 &ndash; 2 days</td>
+              <td class="phase-num">01</td>
+              <td class="scope-name">Database Schema (48 tables)</td>
+              <td class="effort-api">1.5</td>
+              <td class="effort-ui dash">&mdash;</td>
+              <td class="effort-total">1.5 days</td>
             </tr>
             <tr>
-              <td class="phase-num">2</td>
-              <td class="scope-name">Authentication (Clerk)</td>
-              <td class="detail-text">Eliminates ~15 endpoints</td>
-              <td class="effort-days">1 day</td>
-            </tr>
-            <tr>
-              <td class="phase-num">3</td>
-              <td class="scope-name">Core Entity CRUD</td>
-              <td class="detail-text">~45 endpoints</td>
-              <td class="effort-days">3 &ndash; 4 days</td>
-            </tr>
-            <tr>
-              <td class="phase-num">4</td>
+              <td class="phase-num">02</td>
               <td class="scope-name">
-                Clinical Data &mdash; Questionnaires &amp; Answers
+                Authentication &amp; Authorization (Clerk)
               </td>
-              <td class="detail-text">~32 endpoints</td>
-              <td class="effort-days">5 &ndash; 7 days</td>
+              <td class="effort-api">0.5</td>
+              <td class="effort-ui">0.5</td>
+              <td class="effort-total">1 day</td>
             </tr>
             <tr>
-              <td class="phase-num">5</td>
-              <td class="scope-name">TrueVault Replacement</td>
-              <td class="detail-text">Encryption service</td>
-              <td class="effort-days">2 &ndash; 3 days</td>
+              <td class="phase-num">03</td>
+              <td class="scope-name">Shared UI Components &amp; Layout</td>
+              <td class="effort-api dash">&mdash;</td>
+              <td class="effort-ui">2.5</td>
+              <td class="effort-total">2.5 days</td>
             </tr>
             <tr>
-              <td class="phase-num">6</td>
-              <td class="scope-name">Payments &amp; Billing</td>
-              <td class="detail-text">~10 endpoints</td>
-              <td class="effort-days">2 &ndash; 3 days</td>
+              <td class="phase-num">04</td>
+              <td class="scope-name">Dashboard &amp; Navigation</td>
+              <td class="effort-api">0.5</td>
+              <td class="effort-ui">1</td>
+              <td class="effort-total">1.5 days</td>
             </tr>
             <tr>
-              <td class="phase-num">7</td>
+              <td class="phase-num">05</td>
               <td class="scope-name">
-                Scheduling, Screening &amp; Notifications
+                Client Management (~16 endpoints, 5 pages)
               </td>
-              <td class="detail-text">~12 endpoints</td>
-              <td class="effort-days">1 &ndash; 2 days</td>
+              <td class="effort-api">2.5</td>
+              <td class="effort-ui">3</td>
+              <td class="effort-total">5.5 days</td>
             </tr>
             <tr>
-              <td class="phase-num">8</td>
-              <td class="scope-name">Downloads, Reports &amp; Storage</td>
-              <td class="detail-text">~12 endpoints</td>
-              <td class="effort-days">3 &ndash; 4 days</td>
+              <td class="phase-num">06</td>
+              <td class="scope-name">
+                Questionnaires &amp; Instruments (~12 endpoints, 4 pages)
+              </td>
+              <td class="effort-api">3</td>
+              <td class="effort-ui">3.5</td>
+              <td class="effort-total">6.5 days</td>
             </tr>
             <tr>
-              <td class="phase-num">9</td>
-              <td class="scope-name">Background Jobs (Vercel Cron)</td>
-              <td class="detail-text">7 cron routes</td>
-              <td class="effort-days">0.5 days</td>
+              <td class="phase-num">07</td>
+              <td class="scope-name">Charts &amp; Data Visualization</td>
+              <td class="effort-api">1</td>
+              <td class="effort-ui">2</td>
+              <td class="effort-total">3 days</td>
+            </tr>
+            <tr>
+              <td class="phase-num">08</td>
+              <td class="scope-name">Clinical Notes (~5 endpoints, 1 page)</td>
+              <td class="effort-api">0.5</td>
+              <td class="effort-ui">1</td>
+              <td class="effort-total">1.5 days</td>
+            </tr>
+            <tr>
+              <td class="phase-num">09</td>
+              <td class="scope-name">
+                Organization Management (~18 endpoints, 5 pages)
+              </td>
+              <td class="effort-api">1.5</td>
+              <td class="effort-ui">2</td>
+              <td class="effort-total">3.5 days</td>
             </tr>
             <tr>
               <td class="phase-num">10</td>
-              <td class="scope-name">Tracking &amp; Analytics</td>
-              <td class="detail-text">~3 endpoints</td>
-              <td class="effort-days">0.5 days</td>
+              <td class="scope-name">
+                Scheduling &amp; Calendar (~6 endpoints, 1 page)
+              </td>
+              <td class="effort-api">0.5</td>
+              <td class="effort-ui">1</td>
+              <td class="effort-total">1.5 days</td>
             </tr>
             <tr>
               <td class="phase-num">11</td>
-              <td class="scope-name">Data Migration</td>
-              <td class="detail-text">Full production data</td>
-              <td class="effort-days">3 &ndash; 4 days</td>
+              <td class="scope-name">
+                Billing &amp; Payments (~4 endpoints, 3 pages)
+              </td>
+              <td class="effort-api">1</td>
+              <td class="effort-ui">0.5</td>
+              <td class="effort-total">1.5 days</td>
             </tr>
             <tr>
               <td class="phase-num">12</td>
+              <td class="scope-name">
+                Reports &amp; Downloads (~8 endpoints, 3 pages)
+              </td>
+              <td class="effort-api">1.5</td>
+              <td class="effort-ui">1</td>
+              <td class="effort-total">2.5 days</td>
+            </tr>
+            <tr>
+              <td class="phase-num">13</td>
+              <td class="scope-name">
+                Screening Devices (~6 endpoints, 1 page)
+              </td>
+              <td class="effort-api">0.5</td>
+              <td class="effort-ui">0.5</td>
+              <td class="effort-total">1 day</td>
+            </tr>
+            <tr>
+              <td class="phase-num">14</td>
+              <td class="scope-name">TrueVault Replacement (Encryption)</td>
+              <td class="effort-api">2.5</td>
+              <td class="effort-ui dash">&mdash;</td>
+              <td class="effort-total">2.5 days</td>
+            </tr>
+            <tr>
+              <td class="phase-num">15</td>
+              <td class="scope-name">Background Jobs &amp; Analytics</td>
+              <td class="effort-api">1</td>
+              <td class="effort-ui dash">&mdash;</td>
+              <td class="effort-total">1 day</td>
+            </tr>
+            <tr>
+              <td class="phase-num">16</td>
+              <td class="scope-name">Data Migration</td>
+              <td class="effort-api">3.5</td>
+              <td class="effort-ui dash">&mdash;</td>
+              <td class="effort-total">3.5 days</td>
+            </tr>
+            <tr>
+              <td class="phase-num">17</td>
               <td class="scope-name">QA, Hardening &amp; Launch</td>
-              <td class="detail-text">E2E + security</td>
-              <td class="effort-days">3 &ndash; 4 days</td>
+              <td class="effort-api">1.5</td>
+              <td class="effort-ui">1.5</td>
+              <td class="effort-total">3 days</td>
             </tr>
           </tbody>
           <tfoot>
             <tr>
               <td></td>
-              <td>Total Estimated Effort</td>
-              <td></td>
-              <td class="effort-days">27 &ndash; 35 days</td>
+              <td><strong>Total Estimated Effort</strong></td>
+              <td class="effort-api" style="font-size: 15px; font-weight: 800">
+                22d
+              </td>
+              <td class="effort-ui" style="font-size: 15px; font-weight: 800">
+                21d
+              </td>
+              <td class="effort-total">43 days</td>
             </tr>
           </tfoot>
         </table>
+
+        <!-- Visual Bars -->
+        <div class="dual-bar-section">
+          <div class="dual-bar-row">
+            <div class="dual-bar-name" style="color: var(--api)">API</div>
+            <div class="dual-bar-track">
+              <div class="dual-bar-fill api-bar" style="width: 51%">
+                22 days &mdash; Backend, Database, Integrations, Migration
+              </div>
+            </div>
+          </div>
+          <div class="dual-bar-row">
+            <div class="dual-bar-name" style="color: var(--ui)">UI</div>
+            <div class="dual-bar-track">
+              <div class="dual-bar-fill ui-bar" style="width: 49%">
+                21 days &mdash; Pages, Components, Charts, Responsive
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="note-box" style="margin-top: 32px">
+          <p>
+            <strong>Scope note:</strong> Only the ~98 API endpoints actively
+            used by the dashboard are included. ~67 legacy endpoints (admin
+            super-panel, PayPal, mobile-only GPS tracking, test routes) are
+            excluded from this scope. They can be added later if needed.
+          </p>
+        </div>
       </div>
     </div>
 
@@ -1321,79 +1747,94 @@
         <div class="section-label">Timeline</div>
         <h2>Weekly Execution Plan</h2>
         <p class="section-desc">
-          Suggested weekly cadence targeting a 7-week delivery window.
+          Suggested weekly cadence targeting an 8-week delivery window with
+          buffer for testing.
         </p>
         <div class="week-grid">
           <div class="week-label">Week 1</div>
           <div class="week-content">
             <div class="week-phases">
-              <span class="week-phase-tag">P0</span>
-              <span class="week-phase-tag">P1</span>
-              <span class="week-phase-tag">P2</span>
+              <span class="week-phase-tag">P00</span>
+              <span class="week-phase-tag">P01</span>
+              <span class="week-phase-tag">P02</span>
+              <span class="week-phase-tag">P03</span>
             </div>
             <span class="week-desc"
-              >App running, full schema in Postgres, Clerk auth working</span
+              >App running, schema in Postgres, Clerk auth, layout shell</span
             >
           </div>
           <div class="week-label">Week 2</div>
           <div class="week-content">
             <div class="week-phases">
-              <span class="week-phase-tag">P3</span>
+              <span class="week-phase-tag">P04</span>
+              <span class="week-phase-tag">P05</span>
             </div>
             <span class="week-desc"
-              >All core CRUD endpoints live &mdash; therapists, clients, orgs,
-              admins</span
+              >Dashboard live, client CRUD with list, create, and manage
+              pages</span
             >
           </div>
           <div class="week-label">Week 3</div>
           <div class="week-content">
             <div class="week-phases">
-              <span class="week-phase-tag">P4</span>
+              <span class="week-phase-tag">P06</span>
             </div>
             <span class="week-desc"
-              >Questionnaire templates, assignment, and answer submission
-              working</span
+              >Questionnaire builder, templates, assignment, and answer
+              tracking</span
             >
           </div>
           <div class="week-label">Week 4</div>
           <div class="week-content">
             <div class="week-phases">
-              <span class="week-phase-tag">P4</span>
-              <span class="week-phase-tag">P5</span>
+              <span class="week-phase-tag">P06</span>
+              <span class="week-phase-tag">P07</span>
+              <span class="week-phase-tag">P08</span>
             </div>
             <span class="week-desc"
-              >Scoring engine, measurements, protocols, TrueVault replaced</span
+              >Scoring engine, charts &amp; visualizations, clinical notes</span
             >
           </div>
           <div class="week-label">Week 5</div>
           <div class="week-content">
             <div class="week-phases">
-              <span class="week-phase-tag">P6</span>
-              <span class="week-phase-tag">P7</span>
+              <span class="week-phase-tag">P09</span>
+              <span class="week-phase-tag">P10</span>
+              <span class="week-phase-tag">P11</span>
             </div>
             <span class="week-desc"
-              >Stripe/PayPal payments, scheduling, and screening devices</span
+              >Organizations, scheduling calendar, Stripe billing</span
             >
           </div>
           <div class="week-label">Week 6</div>
           <div class="week-content">
             <div class="week-phases">
-              <span class="week-phase-tag">P8</span>
-              <span class="week-phase-tag">P9</span>
-              <span class="week-phase-tag">P10</span>
+              <span class="week-phase-tag">P12</span>
+              <span class="week-phase-tag">P13</span>
+              <span class="week-phase-tag">P14</span>
             </div>
             <span class="week-desc"
-              >PDF exports, reports, file storage, cron jobs, analytics</span
+              >Reports, PDFs, screening devices, TrueVault replacement</span
             >
           </div>
           <div class="week-label">Week 7</div>
           <div class="week-content">
             <div class="week-phases">
-              <span class="week-phase-tag">P11</span>
-              <span class="week-phase-tag">P12</span>
+              <span class="week-phase-tag">P15</span>
+              <span class="week-phase-tag">P16</span>
             </div>
             <span class="week-desc"
-              >Data migration, QA, security hardening, and production
+              >Cron jobs, analytics, data migration scripts &amp; staging
+              dry-run</span
+            >
+          </div>
+          <div class="week-label">Week 8</div>
+          <div class="week-content">
+            <div class="week-phases">
+              <span class="week-phase-tag">P17</span>
+            </div>
+            <span class="week-desc"
+              >QA, security hardening, responsive polish, production
               launch</span
             >
           </div>
@@ -1401,11 +1842,74 @@
 
         <div class="note-box">
           <p>
-            <strong>Note:</strong> This timeline assumes AI-assisted development
-            with continuous iteration. The critical path runs through Phase 4
-            (clinical data) and Phase 11 (data migration), which contain the
-            most complex business logic and highest risk of unexpected edge
-            cases.
+            <strong>Critical path:</strong> Phase 06 (questionnaire builder
+            &amp; scoring engine) and Phase 16 (data migration) carry the
+            highest complexity and risk. The timeline includes buffer in weeks
+            7&ndash;8 for edge cases discovered during integration testing.
+          </p>
+          <p style="margin-top: 8px">
+            <strong>Methodology:</strong> AI-assisted development (vibe coding
+            with Claude). Mechanical tasks like schema generation, CRUD
+            endpoints, and UI components are accelerated 3&ndash;5x. Complex
+            tasks like scoring logic, encryption, and data migration still
+            require careful human review and testing.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Investment Summary -->
+    <div class="container">
+      <div class="section">
+        <div class="section-label">Investment</div>
+        <h2>Project Summary</h2>
+        <p class="section-desc">
+          Total estimated investment for a production-grade, full-stack
+          migration of the Mentegram platform.
+        </p>
+        <div class="investment-grid">
+          <div class="investment-card">
+            <div class="investment-label">API &amp; Backend</div>
+            <div class="investment-value" style="color: var(--api)">22</div>
+            <div class="investment-unit">developer days</div>
+          </div>
+          <div class="investment-card">
+            <div class="investment-label">UI &amp; Frontend</div>
+            <div class="investment-value" style="color: var(--ui)">21</div>
+            <div class="investment-unit">developer days</div>
+          </div>
+          <div class="investment-card highlight">
+            <div
+              class="investment-label"
+              style="color: rgba(255, 255, 255, 0.5)"
+            >
+              Combined Total
+            </div>
+            <div class="investment-value">43</div>
+            <div
+              class="investment-unit"
+              style="color: rgba(255, 255, 255, 0.5)"
+            >
+              developer days &middot; 8 weeks
+            </div>
+          </div>
+        </div>
+
+        <div class="note-box" style="margin-top: 24px">
+          <p>
+            <strong>What&rsquo;s included:</strong> Full-stack Next.js
+            application (API + Dashboard), PostgreSQL database with Drizzle ORM,
+            Clerk authentication, Stripe billing, PDF report generation,
+            encrypted document storage, 7 background jobs, production data
+            migration from MySQL, and QA hardening. Deployed on Vercel with
+            CI/CD.
+          </p>
+          <p style="margin-top: 12px">
+            <strong>Development approach:</strong> AI-assisted &ldquo;vibe
+            coding&rdquo; using Claude as the primary code generation engine.
+            One developer + Claude working in continuous iteration &mdash;
+            resulting in 3&ndash;5x faster delivery on schema, CRUD, and
+            component generation compared to traditional development.
           </p>
         </div>
       </div>
@@ -1415,7 +1919,10 @@
     <div class="container">
       <div class="footer">
         <div class="footer-line"></div>
-        <p>Mentegram API Migration Plan &middot; February 2026</p>
+        <p>
+          Mentegram Platform Migration Plan &middot; February 2026 &middot;
+          Confidential
+        </p>
       </div>
     </div>
   </body>
